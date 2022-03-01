@@ -10,7 +10,7 @@ int main(int argc, char *argv[]) {
          wait(&status);
          printf(1, "child status %d", status);
          exit();
-    } else if (pid = 0) {
+    } else if (pid == 0) {
         printf(1, "child process: %d", pid);
         exitStatus(111);
     }
