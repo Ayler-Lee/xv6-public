@@ -16,7 +16,8 @@ int main(int argc, char *argv[]) {
     //     exitStatus(status);
     // }
     int s;
-    wait(&s);
-    printf(1, "exit eventrually");
+    int pid = wait(&s);
+    printf(1, "pid: %d, child status: %d\n", pid, s);
+    printf(1, "exit eventrually\n");
     exit();
 }
