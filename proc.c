@@ -302,7 +302,7 @@ wait(int *status)
         p->name[0] = 0;
         p->killed = 0;
         p->state = UNUSED;
-        *status = p->estatus;
+        if (status) *status = p->estatus;
         release(&ptable.lock);
         return pid;
       }
