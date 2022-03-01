@@ -267,6 +267,13 @@ exit(void)
   panic("zombie exit");
 }
 
+void
+exitStatus(int status) {
+    struct proc *curproc = myproc();
+    curproc->estatus = status;
+    exit();
+}
+
 // Wait for a child process to exit and return its pid.
 // Return -1 if this process has no children.
 int

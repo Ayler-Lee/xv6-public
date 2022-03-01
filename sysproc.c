@@ -21,6 +21,17 @@ sys_exit(void)
 }
 
 int
+sys_exitStatus(void)
+{
+  int status;
+
+  if(argint(0, &status) < 0)
+    return -1;
+  exitStatus(status);
+  return 0;  // not reached
+}
+
+int
 sys_wait(void)
 {
   return wait();
