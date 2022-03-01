@@ -34,7 +34,11 @@ sys_exitStatus(void)
 int
 sys_wait(void)
 {
-  return wait();
+  int* status;
+  
+  if(argptr(0, &status, sizeof(int *)) < 0)
+    return -1;
+  return wait(status);
 }
 
 int
