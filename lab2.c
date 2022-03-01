@@ -7,12 +7,13 @@ int main(int argc, char *argv[]) {
 
     if (pid > 0) {
         int status;
-         wait(&status);
-         printf(1, "child status %d", status);
+         int cpid = wait(&status);
+         printf(1, "child status: %d, pid: %d, cpid: %d", status, pid, cpid);
          exit();
     } else if (pid == 0) {
-        printf(1, "child process: %d", pid);
-        exitStatus(111);
+        int status = 123;
+        printf(1, "child exit: %d", status);
+        exitStatus(status);
     }
     exit();
 }
