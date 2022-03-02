@@ -8,10 +8,14 @@ int main(int argc, char *argv[]) {
     if (pid > 0) {
         int status;
         //  int cpid = wait(&status);
-         int cpid = waitpid(pid, &status, 0);
-         printf(1, "child status: %d, pid: %d, cpid: %d\n", status, pid, cpid);
+        int wpid = waitpid(pid, &status, 0);
+        if (wpid == pid) {
+            printf(1, "child status: %d, pid: %d, cpid: %d\n", status, pid, wpid);
+        }
          exit();
     } else if (pid == 0) {
+        printf(1, "child sleeping");
+        sleep(5);
         int status = 123;
         printf(1, "child exit: %d", status);
         exitStatus(status);
