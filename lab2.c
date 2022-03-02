@@ -12,7 +12,6 @@ int main(int argc, char *argv[]) {
         if (pid2 > 0) {
             int wpid = waitpid(pid1, &status, 0);
             printf(1, "wpid: %d status: %d\n",wpid, status);
-            exit();
         } else if (pid2 == 0) {
             int status = 234;
             printf(1, "pid2: %d", status);
@@ -27,5 +26,5 @@ int main(int argc, char *argv[]) {
     } else {
         printf(1, "fork error!");
     }
-    return 0;
+    exit();
 }
