@@ -25,5 +25,5 @@ int main(int argc, char *argv[]) {
         printf(1, "child - %d exit: %d", pid1, status);
         exitStatus(status);
     }
-    // exit();
+    exit();
 }
