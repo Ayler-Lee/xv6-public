@@ -13,18 +13,18 @@ int main(int argc, char *argv[]) {
             int wpid = waitpid(pid1, &status, 0);
             printf(1, "wpid: %d status: %d\n",wpid, status);
             exit();
-        } else {
+        } else if (pid2 == 0) {
             int status = 234;
             printf(1, "pid2: %d", status);
-            // exitStatus(status);
-            exit();
+            exitStatus(status);
+        } else {
+            printf(1, "fork error!");
         }
     } else if (pid1 == 0) {
         int status = 123;
         printf(1, "pid1: %d", status);
-        // exitStatus(status);
-        exit();
+        exitStatus(status);
     } else {
-        exit();
+        printf(1, "fork error!");
     }
 }
