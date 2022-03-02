@@ -17,13 +17,14 @@ int main(int argc, char *argv[]) {
             exit();
         } else {
             int status = 234;
-            printf(1, "child - %d exit: %d", pid2, status);
+            printf(1, "child pid2 exit: %d", status);
             exitStatus(status);
         }
     } else if (pid1 == 0) {
         int status = 123;
-        printf(1, "child - %d exit: %d", pid1, status);
+        printf(1, "child pid1 exit: %d", status);
         exitStatus(status);
+    } else {
+        exit();
     }
-    exit();
 }
