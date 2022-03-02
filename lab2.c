@@ -7,9 +7,9 @@ int main(int argc, char *argv[]) {
 
     if (pid > 0) {
         int status;
-         int cpid = wait(&status);
-        //  int cpid = waitpid(pid, &status, 0);
-         printf(1, "child status: %d, pid: %d, cpid: %d", status, pid, cpid);
+        //  int cpid = wait(&status);
+         int cpid = waitpid(pid, &status, 0);
+         printf(1, "child status: %d, pid: %d, cpid: %d\n", status, pid, cpid);
          exit();
     } else if (pid == 0) {
         int status = 123;
