@@ -27,5 +27,5 @@ int main(int argc, char *argv[]) {
     } else {
         printf(1, "fork error!");
     }
-    exit();
+    return 0;
 }
