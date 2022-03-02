@@ -11,19 +11,19 @@ int main(int argc, char *argv[]) {
         int pid2 = fork();
         if (pid2 > 0) {
             int wpid = waitpid(pid1, &status, 0);
-            if (wpid == pid1) {
-                printf(1, "pid1status: %d\n", status);
-            }
+            printf(1, "wpid: %d status: %d\n",wpid, status);
             exit();
         } else {
             int status = 234;
             printf(1, "pid2: %d", status);
-            exitStatus(status);
+            // exitStatus(status);
+            exit();
         }
     } else if (pid1 == 0) {
         int status = 123;
         printf(1, "pid1: %d", status);
-        exitStatus(status);
+        // exitStatus(status);
+        exit();
     } else {
         exit();
     }
