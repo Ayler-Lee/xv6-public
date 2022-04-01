@@ -91,7 +91,7 @@ sys_uptime(void)
 }
 
 int
-sys_updateprior(int)
+sys_updateprior(void)
 {
   int prioriry;
 
