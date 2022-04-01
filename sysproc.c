@@ -97,5 +97,5 @@ sys_updateprior(void)
 
   if(argint(0, &prioriry) < 0)
     return -1;
-  return update_prior(prioriry);
+  return updateprior(prioriry);
 }

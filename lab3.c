@@ -2,6 +2,6 @@
 
 int main(int argc, char *argv) {
     
-    printf(1, "update %d", update_prior(11));
+    printf(1, "update %d", updateprior(11));
     exit();
 }

@@ -544,7 +544,7 @@ procdump(void)
   }
 }
 
-int updateprior(int prioiry) {
+int update_prior(int prioiry) {
   if (prioiry < 0 || prioiry > 31) return -1;
   
   struct proc *p = myproc();
