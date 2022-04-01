@@ -338,8 +338,9 @@ scheduler(void)
       if(!nextp)
         nextp = p;
       if(p->state == RUNNABLE && nextp->priority > p->priority) {
-        if(nextp->priority > 0)
-          nextp->priority -= 1;
+        // if(nextp->priority > 0) {
+        //   nextp->priority -= 1;
+        // }
         nextp = p;
       } else {
         if(p->priority > 0)
