@@ -543,3 +543,15 @@ procdump(void)
     cprintf("\n");
   }
 }
+
+int updateprior(int prioiry) {
+  if (prioiry < 0 || prioiry > 31) return -1;
+  
+  struct proc *p = myproc();
+  acquire(&ptable.lock);
+  if (p->priority != prioiry) {
+    p->priority = prioiry;
+  }
+  release(&ptable.lock);
+  return p->priority;
+}
