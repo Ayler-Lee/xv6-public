@@ -331,16 +331,14 @@ scheduler(void)
   for(;;){
     // Enable interrupts on this processor.
     sti();
-    struct proc *nextp;
+    struct proc *nextp = &ptable.proc[0];
     // Loop over process table looking for process to run.
     acquire(&ptable.lock);
     for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
-      if(!nextp)
-        nextp = p;
       if(p->state == RUNNABLE && nextp->priority > p->priority) {
-        // if(nextp->priority > 0) {
-        //   nextp->priority -= 1;
-        // }
+        if(nextp->priority > 0) {
+          nextp->priority -= 1;
+        }
         nextp = p;
       } else {
         if(p->priority > 0)
