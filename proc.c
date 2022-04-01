@@ -347,18 +347,21 @@ scheduler(void)
           p->priority -= 1;
       }
     }
-    if (nextp->priority < 31) {
-      nextp->priority += 1;
-    }
+
     // Switch to chosen process.  It is the process's job
     // to release ptable.lock and then reacquire it
     // before jumping back to us.
-    c->proc = nextp;
-    switchuvm(nextp);
-    nextp->state = RUNNING;
+    if(nextp) {
+      if (nextp->priority < 31) {
+        nextp->priority += 1;
+      }
+      c->proc = nextp;
+      switchuvm(nextp);
+      nextp->state = RUNNING;
 
-    swtch(&(c->scheduler), nextp->context);
-    switchkvm();
+      swtch(&(c->scheduler), nextp->context);
+      switchkvm();
+    }
 
     // Process is done running for now.
     // It should have changed its p->state before coming back.
