@@ -336,8 +336,8 @@ scheduler(void)
     acquire(&ptable.lock);
     nextp = 0;
     for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
-      if(nextp == 0) nextp = p;
       if(p->state == RUNNABLE && nextp->priority > p->priority) {
+        if(nextp == 0) nextp = p;
         if(nextp->priority > 0) {
           nextp->priority -= 1;
         }
