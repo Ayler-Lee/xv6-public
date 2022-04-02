@@ -266,7 +266,8 @@ exit(void)
   // Jump into the scheduler, never to return.
   curproc->state = ZOMBIE;
   curproc->turnaround = ticks - curproc->turnaround;
-  cprintf("turnaround time: %d\n", curproc->turnaround);
+  cprintf("turnaround time: %d, waiting time: %d\n", curproc->turnaround, curproc->turnaround - curproc->burst);
+
   sched();
   panic("zombie exit");
 }
@@ -362,7 +363,8 @@ scheduler(void)
       c->proc = nextp;
       switchuvm(nextp);
       nextp->state = RUNNING;
-
+      nextp->burst++;
+      cprintf("burst: %d\n", nextp->burst);
       swtch(&(c->scheduler), nextp->context);
       switchkvm();
       // Process is done running for now.
