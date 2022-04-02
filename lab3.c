@@ -3,8 +3,18 @@
 #include "user.h"
 
 int
-main(int argc, char **argv)
+main(int argc, char *argv[])
 {    
-    printf(1, "update %d", updateprior(11));
+    if (argc >= 1) {
+        int val = atoi(argv[1]);
+        updateprior(val);
+        int limit = 4300;
+        for (int i = 0; i < limit; i++) {
+            asm("nop");
+            for (int j = 0; j < limit; j++) {
+                asm("nop");
+            }
+        }
+    }
     exit();
 }
