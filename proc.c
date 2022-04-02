@@ -364,7 +364,7 @@ scheduler(void)
       switchuvm(nextp);
       nextp->state = RUNNING;
       nextp->burst++;
-      cprintf("burst: %d\n", nextp->burst);
+      // cprintf("burst: %d\n", nextp->burst);
       swtch(&(c->scheduler), nextp->context);
       switchkvm();
       // Process is done running for now.
