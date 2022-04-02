@@ -6,7 +6,7 @@ int
 main(int argc, char *argv[])
 {    
     if (argc >= 1) {
-        updateprior(10);
+        updateprior(11);
         int limit = 43000;
         int i, j;
         for (i = 0; i < limit; i++) {
