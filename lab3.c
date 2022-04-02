@@ -9,9 +9,10 @@ main(int argc, char *argv[])
         int val = atoi(argv[1]);
         updateprior(val);
         int limit = 4300;
-        for (int i = 0; i < limit; i++) {
+        int i, j;
+        for (i = 0; i < limit; i++) {
             asm("nop");
-            for (int j = 0; j < limit; j++) {
+            for (j = 0; j < limit; j++) {
                 asm("nop");
             }
         }
