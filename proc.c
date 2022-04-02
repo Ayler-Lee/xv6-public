@@ -266,7 +266,7 @@ exit(void)
   // Jump into the scheduler, never to return.
   curproc->state = ZOMBIE;
   curproc->turnaround = ticks - curproc->turnaround;
-  cprintf("turnaround time: %d", curproc->turnaround);
+  cprintf("turnaround time: %d\n", curproc->turnaround);
   sched();
   panic("zombie exit");
 }
