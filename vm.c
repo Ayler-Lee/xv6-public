@@ -338,7 +338,7 @@ copyuvm(pde_t *pgdir, uint sz)
       goto bad;
     }
   }
-  for(i = KERNBASE - 2*PGSIZE; i < KERNBASE - 4; i += PGSIZE) {
+  for(i = KERNBASE - 2*PGSIZE; i < KERNBASE; i += PGSIZE) {
     if((pte = walkpgdir(pgdir, (void *) i, 0)) == 0)
       panic("copyuvm: pte should exist");
     if(!(*pte & PTE_P))
@@ -348,7 +348,7 @@ copyuvm(pde_t *pgdir, uint sz)
     if((mem = kalloc()) == 0)
       goto bad;
     memmove(mem, (char*)P2V(pa), PGSIZE);
-    cprintf("map page %x", i);
+    cprintf("map page %x\n", i);
     if(mappages(d, (void*)i, PGSIZE, V2P(mem), flags) < 0) {
       kfree(mem);
       goto bad;
