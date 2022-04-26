@@ -231,6 +231,7 @@ allocuvm(pde_t *pgdir, uint oldsz, uint newsz)
 
   a = PGROUNDUP(oldsz);
   for(; a < newsz; a += PGSIZE){
+    cprintf("alloc pages: %d", a);
     mem = kalloc();
     if(mem == 0){
       cprintf("allocuvm out of memory\n");
@@ -337,9 +338,8 @@ copyuvm(pde_t *pgdir, uint sz)
       goto bad;
     }
   }
-  cprintf("copy stack kernbase = %d down to %d", KERNBASE - 4, KERNBASE - 2*PGSIZE);
 
-  for(i = KERNBASE - 4; i > KERNBASE - 2*PGSIZE; i -= PGSIZE){
+  for(i = KERNBASE; i > KERNBASE - 2*PGSIZE; i -= PGSIZE){
     if((pte = walkpgdir(pgdir, (void *) i, 0)) == 0)
       panic("copyuvm: pte should exist");
     if(!(*pte & PTE_P))
