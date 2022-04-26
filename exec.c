@@ -100,7 +100,8 @@ exec(char *path, char **argv)
   oldpgdir = curproc->pgdir;
   curproc->pgdir = pgdir;
   curproc->sz = sz;
-  curproc->stacksz = KERNBASE - sp - 4;
+  uint stacksz = KERNBASE - sp - 4;
+  curproc->stacksz = stacksz;
   curproc->tf->eip = elf.entry;  // main
   curproc->tf->esp = sp;
   switchuvm(curproc);
