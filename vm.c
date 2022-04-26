@@ -320,7 +320,6 @@ copyuvm(pde_t *pgdir, uint sz)
   pte_t *pte;
   uint pa, i, flags;
   char *mem;
-  uint stacksz;
 
   if((d = setupkvm()) == 0)
     return 0;
@@ -339,8 +338,6 @@ copyuvm(pde_t *pgdir, uint sz)
       goto bad;
     }
   }
-  
-  stacksz = myproc()->stacksz;
 
   for(i = KERNBASE; i > KERNBASE - 2*PGSIZE; i -= PGSIZE){
     if((pte = walkpgdir(pgdir, (void *) i, 0)) == 0)
