@@ -68,7 +68,6 @@ mappages(pde_t *pgdir, void *va, uint size, uint pa, int perm)
   for(;;){
     if((pte = walkpgdir(pgdir, a, 1)) == 0)
       return -1;
-    cprintf("which is not exitst? pte = %d, PTEP = ", *pte, PTE_P);
     if(*pte & PTE_P)
       panic("remap");
     *pte = pa | perm | PTE_P;
@@ -338,22 +337,23 @@ copyuvm(pde_t *pgdir, uint sz)
       goto bad;
     }
   }
-  for(i = KERNBASE - 4; i > KERNBASE - 2*PGSIZE; i -= PGSIZE){
-    if((pte = walkpgdir(pgdir, (void *) i, 0)) == 0)
-      panic("copyuvm: pte should exist");
-    if(!(*pte & PTE_P))
-      panic("copyuvm: page not present");
-    pa = PTE_ADDR(*pte);
-    flags = PTE_FLAGS(*pte);
-    if((mem = kalloc()) == 0)
-      goto bad;
-    memmove(mem, (char*)P2V(pa), PGSIZE);
-    cprintf("copy stack i = %x flag = %d", i, flags);
-    if(mappages(d, (void*)i, PGSIZE, V2P(mem), flags) < 0) {
-      kfree(mem);
-      goto bad;
-    }
-  }
+  cprintf("copy stack kernbase = %d down to %d", KERNBASE - 4, KERNBASE - 2*PGSIZE);
+
+  // for(i = KERNBASE - 4; i > KERNBASE - 2*PGSIZE; i -= PGSIZE){
+  //   if((pte = walkpgdir(pgdir, (void *) i, 0)) == 0)
+  //     panic("copyuvm: pte should exist");
+  //   if(!(*pte & PTE_P))
+  //     panic("copyuvm: page not present");
+  //   pa = PTE_ADDR(*pte);
+  //   flags = PTE_FLAGS(*pte);
+  //   if((mem = kalloc()) == 0)
+  //     goto bad;
+  //   memmove(mem, (char*)P2V(pa), PGSIZE);
+  //   if(mappages(d, (void*)i, PGSIZE, V2P(mem), flags) < 0) {
+  //     kfree(mem);
+  //     goto bad;
+  //   }
+  // }
   return d;
 
 bad:
