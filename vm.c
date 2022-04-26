@@ -320,7 +320,6 @@ copyuvm(pde_t *pgdir, uint sz)
   pte_t *pte;
   uint pa, i, flags;
   char *mem;
-  cprintf("copy uvm .. \n");
 
   if((d = setupkvm()) == 0)
     return 0;
@@ -339,7 +338,6 @@ copyuvm(pde_t *pgdir, uint sz)
       goto bad;
     }
   }
-  cprintf("copied heap .. \n");
 
   for(i = KERNBASE - 2*PGSIZE; i < KERNBASE; i += PGSIZE) {
     if((pte = walkpgdir(pgdir, (void *) i, 0)) == 0)
@@ -353,12 +351,10 @@ copyuvm(pde_t *pgdir, uint sz)
     memmove(mem, (char*)P2V(pa), PGSIZE);
     cprintf("map page %x\n", i);
     if(mappages(d, (void*)i, PGSIZE, V2P(mem), flags) < 0) {
-      cprintf("mem error");
       kfree(mem);
       goto bad;
     }
   }
-  cprintf("copied stack .. \n");
   return d;
 
 bad:
