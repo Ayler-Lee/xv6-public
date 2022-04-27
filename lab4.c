@@ -35,8 +35,8 @@ main(int argc, char *argv[])
   }
 
   n = atoi(argv[1]);
-  printf(1, "Lab 3: Recursing %d levels\n", n);
+  printf(1, "Lab 4: Recursing %d levels\n", n);
   m = recurse(n);
-  printf(1, "Lab 3: Yielded a value of %d\n", m);
+  printf(1, "Lab 4: Yielded a value of %d\n", m);
   exit();
 }
