@@ -198,7 +198,7 @@ fork(void)
     return -1;
   }
   np->sz = curproc->sz;
-  np->stacksz = curproc->stacksz;
+  np->stackpg = curproc->stackpg;
   np->parent = curproc;
   *np->tf = *curproc->tf;
 
