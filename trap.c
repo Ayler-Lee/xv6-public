@@ -86,7 +86,7 @@ trap(struct trapframe *tf)
       exit();
     }
     curproc->stackpg++;
-    cprintf("created a new stack page");
+    cprintf("created a new stack page: %d\n", curproc->stackpg);
     break;
   }
 
