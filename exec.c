@@ -70,7 +70,6 @@ exec(char *path, char **argv)
   if((sp = allocuvm(pgdir, KERNBASE - PGSIZE, KERNBASE-4)) == 0)
     goto bad;
   // clearpteu(pgdir, (char*)(KERNBASE - PGSIZE));
-  curproc->stackpg = 1;
 
   // Push argument strings, prepare rest of stack in ustack.
   for(argc = 0; argv[argc]; argc++) {
@@ -101,6 +100,7 @@ exec(char *path, char **argv)
   oldpgdir = curproc->pgdir;
   curproc->pgdir = pgdir;
   curproc->sz = sz;
+  curproc->stackpg = 1;
   curproc->tf->eip = elf.entry;  // main
   curproc->tf->esp = sp;
   switchuvm(curproc);

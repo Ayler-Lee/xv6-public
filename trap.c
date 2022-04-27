@@ -77,6 +77,17 @@ trap(struct trapframe *tf)
             cpuid(), tf->cs, tf->eip);
     lapiceoi();
     break;
+  case T_PGFLT:
+      uint sp;
+      struct proc *curproc = myproc();
+      sp = KERNBASE - curproc->stackpg * PGSIZE;
+      if((sp = allocuvm(myproc()->pgdir, sp - PGSIZE, sp)) == 0) {
+        cprintf("create page fail");
+        exit();
+      }
+      curproc->stackpg++;
+      cprintf("created a new stack page");
+    break;
 
   //PAGEBREAK: 13
   default:
