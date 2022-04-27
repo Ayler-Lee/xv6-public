@@ -18,8 +18,13 @@ int
 fetchint(uint addr, int *ip)
 {
   struct proc *curproc = myproc();
+  uint sp;
+  sp = KERNBASE - curproc->stacksz;
+  
   cprintf("int addr: %x is %d, stack size is %d", addr, *(int*)(addr), curproc->stacksz);
-  if(addr >= curproc->stacksz || addr+4 > curproc->stacksz)
+  if((addr >= curproc->sz || addr+4 > curproc->sz)&& addr < sp)
+    return -1;
+  if (addr > KERNBASE)
     return -1;
   *ip = *(int*)(addr);
   return 0;
