@@ -38,7 +38,6 @@ int
 fetchstr(uint addr, char **pp)
 {
   char *s, *ep;
-  uint sp;
   struct proc *curproc = myproc();
   
   if(addr >= KERNBASE) {
