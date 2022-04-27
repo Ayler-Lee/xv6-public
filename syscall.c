@@ -21,11 +21,15 @@ fetchint(uint addr, int *ip)
   uint sp;
   sp = KERNBASE - curproc->stacksz;
   
-  cprintf("int addr: %x is %d, stack size is %d", addr, *(int*)(addr), curproc->stacksz);
-  if((addr >= curproc->sz || addr+4 > curproc->sz)&& addr < sp)
+  
+  if((addr >= curproc->sz || addr+4 > curproc->sz)&& addr < sp) {
+    cprintf("int addr: %x is %d, stack size is %d", addr, *(int*)(addr), curproc->stacksz);
     return -1;
-  if (addr > KERNBASE)
+  }
+  if (addr > KERNBASE) {
+    cprintf("fetchint addr: %x is %d, stack size is %d", addr, *(int*)(addr), curproc->stacksz);
     return -1;
+  }
   *ip = *(int*)(addr);
   return 0;
 }
@@ -37,16 +41,22 @@ int
 fetchstr(uint addr, char **pp)
 {
   char *s, *ep;
+  uint sp;
   struct proc *curproc = myproc();
-
-  if(addr >= curproc->stacksz)
+  
+  sp = KERNBASE - curproc->stacksz;
+  if((addr >= curproc->sz) && addr < sp) {
+    cprintf("fetchstr addr: %x is %s, stack size is %d", addr, (char*)addr, curproc->stacksz);
     return -1;
+  }
   *pp = (char*)addr;
   ep = (char*)curproc->sz;
   for(s = *pp; s < ep; s++){
     if(*s == 0)
       return s - *pp;
   }
+  
+  cprintf("fetchstr addr: %x is %s, stack size is %d", addr, (char*)addr, curproc->stacksz);
   return -1;
 }
 
@@ -68,8 +78,10 @@ argptr(int n, char **pp, int size)
  
   if(argint(n, &i) < 0)
     return -1;
-  if(size < 0 || (uint)i >= curproc->stacksz || (uint)i+size > curproc->stacksz)
+  if(size < 0 || (uint)i >= curproc->stacksz || (uint)i+size > curproc->stacksz) {
+    cprintf("argptr addr: %x is %s, stack size is %d", n, i, curproc->stacksz);
     return -1;
+  }
   *pp = (char*)i;
   return 0;
 }
