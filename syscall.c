@@ -20,11 +20,9 @@ fetchint(uint addr, int *ip)
   struct proc *curproc = myproc();
   
   if(addr >= KERNBASE || addr+4 > KERNBASE) {
-    cprintf("int addr: %x is %d, stack size is %d\n", addr, *(int*)(addr), curproc->stackpg);
     return -1;
   }
   if (addr > KERNBASE) {
-    cprintf("fetchint addr: %x is %d, stack size is %d\n", addr, *(int*)(addr), curproc->stackpg);
     return -1;
   }
   *ip = *(int*)(addr);
@@ -41,17 +39,14 @@ fetchstr(uint addr, char **pp)
   struct proc *curproc = myproc();
   
   if(addr >= KERNBASE) {
-    cprintf("fetchstr addr: %x is %s, stack size is %d\n", addr, (char*)addr, curproc->stackpg);
     return -1;
   }
   *pp = (char*)addr;
-  ep = (char*)curproc->sz;
+  ep = (char*)KERNBASE;
   for(s = *pp; s < ep; s++){
     if(*s == 0)
       return s - *pp;
   }
-  
-  cprintf("fetchstr addr: %x is %s, stack size is %d\n", addr, (char*)addr, curproc->stackpg);
   return -1;
 }
 

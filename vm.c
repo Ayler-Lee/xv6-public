@@ -231,7 +231,6 @@ allocuvm(pde_t *pgdir, uint oldsz, uint newsz)
 
   a = PGROUNDUP(oldsz);
   for(; a < newsz; a += PGSIZE){
-    cprintf("alloc pages: %x", a);
     mem = kalloc();
     if(mem == 0){
       cprintf("allocuvm out of memory\n");
