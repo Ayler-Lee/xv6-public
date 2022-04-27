@@ -22,9 +22,6 @@ fetchint(uint addr, int *ip)
   if(addr >= KERNBASE || addr+4 > KERNBASE) {
     return -1;
   }
-  if (addr > KERNBASE) {
-    return -1;
-  }
   *ip = *(int*)(addr);
   return 0;
 }
