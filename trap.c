@@ -78,20 +78,21 @@ trap(struct trapframe *tf)
     lapiceoi();
     break;
   case T_PGFLT: {
+    uint sp;
     struct proc *curproc = myproc();
     uint cr = rcr2();
     
-    uint sp;
     sp = KERNBASE - curproc->stackpg * PGSIZE;
-
-    cprintf("memroy %x is out of stack %x - %x", cr, sp-PGSIZE, sp);
-    
-    if((sp = allocuvm(curproc->pgdir, sp - PGSIZE, sp)) == 0) {
-      cprintf("create a new page failed");
-      exit();
+    // cprintf("memroy %x is out of stack %x - %x\n", cr, sp-PGSIZE, sp);
+    if (cr > sp-PGSIZE && cr < sp) {
+      if((allocuvm(curproc->pgdir, sp - PGSIZE, sp)) == 0) {
+        cprintf("create a new page failed");
+        exit();
+      }
+      curproc->stackpg++;
+      cprintf("created a new stack page: %d\n", curproc->stackpg);
     }
-    curproc->stackpg++;
-    cprintf("created a new stack page: %d\n", curproc->stackpg);
+    
     break;
   }
 
